@@ -1,0 +1,2 @@
+"The Role of Blockchain in Supply Chain Management"
+Blockchain technology has the potential to revolutionize supply chain management by providing a secure and transparent system for tracking goods and transactions. This article explores the advantages and challenges of blockchain in supply chain management, as well as some of the key applications and use cases. It also discusses the importance of interoperability and standardization in the adoption of blockchain technology.
