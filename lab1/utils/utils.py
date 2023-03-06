@@ -34,3 +34,11 @@ def read_docs(docs: set) -> dict:
             lines = file.read()
         result[doc] = lines
     return result
+
+def read_docs_with_val(docs: dict) -> dict:
+    result = {}
+    for doc, value in docs.items():
+        with open(doc, "r", encoding="UTF-8") as file:
+            lines = file.read()
+        result[doc+" "+str(value)] = lines
+    return result

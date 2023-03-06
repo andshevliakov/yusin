@@ -1,8 +1,9 @@
 import os
 import numpy as np
 from processor.processor import Processor
-from utils.utils import read_docs, remove_string_punctuation, most_common_word_count_in_str, read_doc_string_formated
+from utils.utils import read_docs_with_val, remove_string_punctuation, most_common_word_count_in_str, read_doc_string_formated
 
+K = 0.01
 
 class VectorSpaceModel(Processor):
 
@@ -25,10 +26,10 @@ class VectorSpaceModel(Processor):
             casine_sim[doc_name] = np.dot(
                 query_vector, self.document_vectors[doc_name]) / euclidean_norm
         ranked_docs = self.__rank_documents(casine_sim)
-        return read_docs(ranked_docs)
+        return read_docs_with_val(ranked_docs)
 
     def __rank_documents(self, casine_sim: dict) -> dict:
-        return dict(sorted([(k, v) for k, v in casine_sim.items() if v > 0.1], key=lambda item: item[1], reverse=True))
+        return dict(sorted([(k, v) for k, v in casine_sim.items() if v > 0.2], key=lambda item: item[1], reverse=True))
 
     def __create_vector(self, target_str: str) -> np.ndarray:
         common_count_word = most_common_word_count_in_str(target_str)
@@ -50,8 +51,7 @@ class VectorSpaceModel(Processor):
         return list(set(result))
 
     def __tf(self, term_count: int, max_term_count: int) -> float:
-        k = 0.36
-        return (k+(1-k))*(term_count / max_term_count)
+        return K+(1-K)*(term_count / max_term_count)
 
     def __idf(self, term: str) -> float:
         N = len(self.documents)
